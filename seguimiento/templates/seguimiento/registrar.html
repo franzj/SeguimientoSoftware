@@ -1,0 +1,11 @@
+{% extends 'seguimiento/base.html' %}
+
+{% block content %}
+<div class="col-lg-7" style="margin-top: -32px;">
+  <h1 class="display-4">Registrarce</h1>
+  <p class="lead">La mejor manera de construir software</p>
+  <h4 class="display-5">Crea tu propia cuenta</h4>
+  <hr>
+  {% include "seguimiento/includes/formulario_registro.html" with card=False csrf_token=csrf_token form=form only %}
+</div>
+{% endblock %}

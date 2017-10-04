@@ -1,0 +1,71 @@
+{% extends "seguimiento/base.html" %}
+{% load staticfiles %}
+{% load rest_framework %}
+
+{% block bodyclass %}container-fluid main{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block main %}
+  {# Título y mensaje #}
+  <div class="mx-auto" style="width: 320px; text-align: center; margin-top: 32px;">
+    <img src="{% static 'imgs/logo.svg' %}" width="64" height="64">
+    <h3 style="margin: 12px 0 20px 0;">Iniciar Sessión</h3>
+  </div>
+  {# Muestra un mensaje de error si el nombre de usuario o contraseña son incorectos #}
+  <div class="mx-auto" style="width: 320px;">
+    {% if form.non_field_errors %}
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong>Nombre de usuario</strong> o <strong>contraseña</strong> incorrectos
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  {# formulario de incio de sesión #}
+  <div class="mx-auto" style="width: 320px">
+    <div class="card card-block"
+      style="background-color: #fafbfc!important; color: #586069!important; padding: 24px;">
+      <form action="{% url 'rest_framework:login' %}" role="form" method="post">
+        {% csrf_token %}
+        {# siguiente recurso a ser usuado #}
+        <input type="hidden" name="next" value="{{ next }}" />
+        {# Widget de nombre de usuario #}
+        <div class="form-group">
+          <label for="id_username"><strong>{{ form.username.label }}</strong></label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
+            <input type="text" name="username" maxlength="100"
+                autocapitalize="off" autocomplete="off"
+                autocorrect="off" class="form-control"
+                id="id_username" required autofocus
+                {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+          </div>
+        </div>
+        {# Widget de contraseña #}
+        <div class="form-group">
+          <label for="id_password"><strong>{{ form.password.label }}</strong></label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+            <input type="password" name="password" maxlength="100"
+                autocapitalize="off" autocorrect="off"
+                class="form-control" id="id_password" required>
+          </div>
+        </div>
+        {# botón de confirmación de envío #}
+        <input type="submit" name="submit"
+            value="Iniciar Sesión" class="btn btn-primary form-control"
+            id="submit-id-submit" style="margin-bottom: 12px;">
+        {# Link de recuperación de contraseña #}
+        <a href="#">Olvidaste tu contraseña?</a>
+      </form>
+    </div>
+  </div>
+  {# Mensaje de crear una cuenta #}
+  <div class="mx-auto" style="width: 320px; margin-top: 16px;">
+    <center class="alert alert-info" role="alert">
+      Eres nuevo? <a href="{% url 'registrar' %}"><strong>Crea una cuenta</strong></a>
+    </center>
+  </div>
+{% endblock %}

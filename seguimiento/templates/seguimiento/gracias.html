@@ -1,0 +1,13 @@
+{% extends 'seguimiento/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="mx-auto">
+    <h1 class="display-3">En hora buena!</h1>
+    <p class="lead" style="text-align: center;">
+      Grandes cosas sucederán a partir de hoy ;-)
+      <br><br>
+      <img src="{% static 'imgs/bienvenida.svg' %}" width="224" height="224">
+    </p>
+  </div>
+{% endblock %}
