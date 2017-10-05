@@ -12,7 +12,7 @@ import random
 class GrupoManager(GroupManager):
     use_in_migrations = False
     
-    def get_grupo_SISRequisitos(self):
+    '''def get_grupo_SISRequisitos(self):
         """
         Busca el grupo con nombre "Usuarios comunes" si no crea el grupo
         """
@@ -40,7 +40,7 @@ class GrupoManager(GroupManager):
             grupo.save()
             return grupo
         except Exception as e:
-            return None
+            return None'''
 
 
 class Grupo(Group):
@@ -69,10 +69,10 @@ class UsuarioBase(AbstractUser):
 
 
 class AdministradorManager(UserManager):
-    def get_queryset(self):
+'''    def get_queryset(self):
         return super(AdministradorManager, self).get_queryset().filter(
             groups=Grupo.objects.get_grupo_admin()
-        )
+        )'''
     
     def create_user(self, username, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -108,7 +108,7 @@ class Administrador(UsuarioBase):
 class UsuarioManager(UserManager):
     def get_queryset(self):
         return super(UsuarioManager, self).get_queryset().filter(
-            groups=Grupo.objects.get_grupo_SISRequisitos()
+#            groups=Grupo.objects.get_grupo_SISRequisitos()
         )
 
 
